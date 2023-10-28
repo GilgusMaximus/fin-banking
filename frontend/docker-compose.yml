@@ -1,19 +1,18 @@
 version: '2'
 services:
   server:
-    container_name: backend
+    container_name: frontend
     build: .
-    command: yarn start
+    command: yarn dev
     ports:
-      - "8080:8080"
+      - "3000:3000"
     expose:
       - 8080
     environment:
-      - PORT=8080
-      - DEBUG=backend:server
+      - PORT=3000
     networks:
       - banking
 networks:
   banking:
     name: bank-network
-    driver: bridge
+    external: true
