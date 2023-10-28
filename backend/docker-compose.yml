@@ -1,0 +1,13 @@
+version: '2'
+services:
+  server:
+    container_name: backend
+    build: .
+    command: yarn start
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    environment:
+      - PORT=8080
+      - DEBUG=backend:server
