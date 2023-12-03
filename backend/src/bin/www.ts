@@ -14,6 +14,7 @@ dotenv.config();
  */
 
 const port = normalizePort(process.env.PORT || "8080");
+console.log(`Running on port ${port}`);
 app.set('port', port);
 
 /**

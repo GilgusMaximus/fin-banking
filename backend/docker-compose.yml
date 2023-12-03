@@ -5,15 +5,42 @@ services:
     build: .
     command: yarn start
     ports:
-      - "8080:8080"
+      - "8081:8081"
     expose:
-      - 8080
+      - 8081
     environment:
-      - PORT=8080
+      - PORT=8081
       - DEBUG=backend:server
     networks:
       - banking
+      - backend-db
+  postgres:
+    container_name: database
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${DB_PWD}
+      - POSTGRES_DB=backend
+    networks:
+      - backend-db
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+    networks:
+      - backend-db
+
 networks:
   banking:
     name: bank-network
+    driver: bridge
+  backend-db:
+    name: backend-db
     driver: bridge
